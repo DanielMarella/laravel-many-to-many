@@ -11,20 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
+
+        
+
         Schema::create('project_technology', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('technology_id');
-            $table->timestamps();
-
+            
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects');
-
             
-            $table->foreign('tecgnology_id')
+            
+            $table->foreign('technology_id')
                 ->references('id')
                 ->on('technologies');
+            
+            $table->timestamps();
         });
     }
 
