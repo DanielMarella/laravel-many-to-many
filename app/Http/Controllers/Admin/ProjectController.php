@@ -55,8 +55,11 @@ class ProjectController extends Controller
         $newProject = Project::create($data);
         $newProject->slug = Str::of("$newProject->id " . $data['title'])->slug('-');
         $newProject->save();
+
+        $project = Project::create($data);
+        $project->technologies()->sync($request->input('technologies'));
         
-        return redirect()->route('admin.projects.index', $newProject);
+        return redirect()->route('admin.projects.index', $newProject, $project);
     }
 
     /**
@@ -98,7 +101,11 @@ class ProjectController extends Controller
         
         $data['slug'] = Str::of($data['title'])->slug('-');
         $project->update($data);
-        return redirect()->route('admin.projects.show',compact('project'));
+
+        $project = Project::create($data);
+        $project->technologies()->sync($request->input('technologies'));
+        
+        return redirect()->route('admin.projects.index', $newProject, $project);
 
     }
 
