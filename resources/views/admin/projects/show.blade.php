@@ -8,6 +8,11 @@
                 <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }} ---
                     {{ $post->type ? $post->type->name : '' }}</h5>
 
+                @foreach ($project->technologies as $technology)
+                {{$technology->name}} --
+                    
+                @endforeach
+
                 @if (str_starts_with($project->image, 'http'))
                     <img src="{{$project -> image}}" class="card-img-top" alt="{{$project -> title}}">
                 @else
