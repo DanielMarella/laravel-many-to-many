@@ -40,7 +40,7 @@ class ProjectController extends Controller
 
         $data = $request->validate([
             'title' => ['required', 'unique:projects','min:3', 'max:255'],
-            'image' => ['required', 'image'],
+            'image' => ['image'],
             'content' => ['required','min:10'],
             'type_id' => ['required', 'exists:types,id']
         ]);
@@ -73,8 +73,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project','types'));
     }
 
     /**
@@ -84,7 +84,7 @@ class ProjectController extends Controller
     {
         $data = $request->validate([
             'title' => ['required','min:3', 'max:255', Rule::unique('projects')->ignore($project->id)],
-            'image' => ['image'],
+            'image' => ['image', 'max:512'],
             'content' => ['required','min:10'],
             'type_id' => ['required', 'exists:types,id']
 
