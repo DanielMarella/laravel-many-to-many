@@ -39,7 +39,7 @@
                 @enderror
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <input type="text" class="form-control" id="image" placeholder="insert image link" name="image" value="{{old('image' , $project->image)}}">
+                    <input type="file" class="form-control" id="image" placeholder="insert image link" name="image" value="{{old('image' , $project->image)}}">
                 </div>
 
                 @error('content')
