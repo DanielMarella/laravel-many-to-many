@@ -33,6 +33,20 @@
                     </select>
                 </div>
 
+
+                @error('technologies')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror   
+                <select class="form-select" name="technologies[]" multiple>
+                    @foreach ($technologies as $technology)
+                        <option value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
+                            {{ $technology->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+
+
                 @error('image')
                 <div class="alert alert-danger">{{$message}}</div>
                 @enderror
