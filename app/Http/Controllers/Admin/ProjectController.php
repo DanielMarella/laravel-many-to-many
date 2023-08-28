@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Project;
+use App\Models\Admin\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -27,8 +28,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -36,12 +37,14 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'title' => ['required', 'unique:projects','min:3', 'max:255'],
             'image' => ['required', 'image'],
             'content' => ['required','min:10'],
+            'type_id' => ['required', 'exists:types,id']
         ]);
-        
+
         if ($request->hasFile('image')) {
             
             $img_path = Storage::put('uploads', $request['image']);
@@ -49,7 +52,6 @@ class ProjectController extends Controller
         }
 
         $data['slug'] = Str::of($data['title'])->slug('-');
-
         $newProject = Project::create($data);
         $newProject->slug = Str::of("$newProject->id " . $data['title'])->slug('-');
         $newProject->save();
@@ -62,7 +64,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('admin.projects.show', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.show', compact('project', 'types'));
     }
 
     /**
@@ -83,6 +86,7 @@ class ProjectController extends Controller
             'title' => ['required','min:3', 'max:255', Rule::unique('projects')->ignore($project->id)],
             'image' => ['image'],
             'content' => ['required','min:10'],
+            'type_id' => ['required', 'exists:types,id']
 
         ]);
 

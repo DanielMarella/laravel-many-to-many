@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }} --- {{ $project->type->name }}</h5>
+                <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }} ---
+                    {{ $post->type ? $post->type->name : '' }}</h5>
+
                 @if (str_starts_with($project->image, 'http'))
                     <img src="{{$project -> image}}" class="card-img-top" alt="{{$project -> title}}">
                 @else
