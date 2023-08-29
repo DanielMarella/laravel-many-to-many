@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12">
-            <form action="{{route('admin.projects.update', $project->id)}}" method="POST">
+            <form action="{{route('admin.projects.update', $project->id)}}" method="POST"  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -15,7 +15,7 @@
                     <label for="title" class="form-label">
                         Title
                     </label>
-                    <input type="text" class="form-control" id="title" placeholder="Insert your project's title" name="title" value="{{old('title' , $project->title)}}">
+                    <input type="text" class="form-control" id="title" name="title" value="{{old('title' , $project->title)}}">
                 </div>
 
                 @error('type_id')
@@ -23,7 +23,7 @@
                 @enderror
                 <div class="mb-5">
                     <label for="type_id" class="form-label">
-                        Title
+                        Type
                     </label>
                     <select class='form-select' name="type_id" id="type_id">
                         @foreach ($types as $type)
@@ -39,7 +39,8 @@
                 @enderror
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="image" placeholder="insert image link" name="image" value="{{old('image' , $project->image)}}">
+
+                    <input type="file" class="form-control" id="image" name="image" value="{{old('image', '')}}">
                 </div>
 
                 @error('content')
