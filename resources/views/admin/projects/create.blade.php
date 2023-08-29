@@ -37,14 +37,16 @@
                 @error('technologies')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror   
-                <select class="form-select" name="technologies[]" multiple>
-                    @foreach ($technologies as $technology)
-                        <option value="{{ $technology->id }}" {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
-                            {{ $technology->name }}
-                        </option>
-                    @endforeach
-                </select>
-
+                
+                @foreach ($technologies as $technology)
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" name="technologies[]" value="{{$technology->id}}" 
+                        id="technology{{ $technology->id }}"{{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                    <label for="technology{{ $technology->id }}" class="form-check-label">
+                        {{$technology->name}}
+                    </label>
+                </div>
+                @endforeach
 
 
                 @error('image')
