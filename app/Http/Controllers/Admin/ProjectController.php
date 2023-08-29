@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Project;
 use App\Models\Admin\Type;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -28,8 +29,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $technologies = Technology::all();
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types','technologies'));
     }
 
     /**
@@ -56,10 +58,10 @@ class ProjectController extends Controller
         $newProject->slug = Str::of("$newProject->id " . $data['title'])->slug('-');
         $newProject->save();
 
-        $project = Project::create($data);
-        $project->technologies()->sync($request->input('technologies'));
+        // $project = Project::create($data);
+        $newProject->technologies()->sync($request->input('technologies'));
         
-        return redirect()->route('admin.projects.index', $newProject, $project);
+        return redirect()->route('admin.projects.index',$newProject );
     }
 
     /**
@@ -95,17 +97,17 @@ class ProjectController extends Controller
 
         if ($request->hasFile('image')) {
             Storage::delete($project->image);
-            $img_path = Storage::put('uploads', $request['image']);
+            $img_path = Storage::put('uploads', $request-file('image'));
             $data['image'] = $img_path;
         }
         
         $data['slug'] = Str::of($data['title'])->slug('-');
+
         $project->update($data);
 
-        $project = Project::create($data);
         $project->technologies()->sync($request->input('technologies'));
         
-        return redirect()->route('admin.projects.index', $newProject, $project);
+        return redirect()->route('admin.projects.index', compact('project'));
 
     }
 
