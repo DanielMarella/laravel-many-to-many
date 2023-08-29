@@ -16,7 +16,7 @@ class TypeSeeder extends Seeder
     {
 
         $types = [
-            'News', 'Sport', 'Music', 'Art'
+            'News', 'Sport', 'Music', 'Art', 'Web'
         ];
 
         foreach ($types as $type) {
