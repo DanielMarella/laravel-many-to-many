@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }} ---
-                    {{ $post->type ? $post->type->name : '' }}</h5>
+                    {{ $project->type ? $project->type->name : '' }}</h5>
 
                 @foreach ($project->technologies as $technology)
                 {{$technology->name}} --
