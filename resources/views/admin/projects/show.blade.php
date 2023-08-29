@@ -1,17 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" id="projects-container">
+<div class="container" id="posts-container">
     <div class="row justify-content-center">
         <div class="col-12">
             <div class="card">
-                <h5 class="card-header"> ID: {{ $project->id }} ---- {{ $project->slug }} ---
-                    {{ $project->type ? $project->type->name : '' }}</h5>
-
-                @foreach ($project->technologies as $technology)
-                {{$technology->name}} --
-                    
-                @endforeach
+                <h5 class="card-header"> <strong> ID: </strong> {{ $project->id }}
+                    <p class="mt-3">
+                        <strong>Slug:</strong> <span class="mx-1">-{{ $project->slug }}-</span>
+                    </p>
+                    <p class="mt-3">
+                        <strong>Type:</strong> <span class="mx-1">-{{ $project->type ? $project->type->name : '' }}-</span>
+                    </p>
+                    <p class="mt-3">
+                       <strong>Technology:</strong>
+                        @foreach ($project->technologies as $technology)
+                            <span class="mx-1">-{{$technology->name}}-</span>
+                        @endforeach
+                    </p>
+                </h5>
 
                 @if (str_starts_with($project->image, 'http'))
                     <img src="{{$project -> image}}" class="card-img-top" alt="{{$project -> title}}">

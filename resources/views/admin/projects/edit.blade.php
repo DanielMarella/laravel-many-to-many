@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" id="posts-container">
     <div class="row justify-content-center">
         <div class="col-12">
             <form action="{{route('admin.projects.update', $project->id)}}" method="POST"  enctype="multipart/form-data">
@@ -33,6 +33,22 @@
                         @endforeach
                     </select>
                 </div>
+
+
+                @error('technologies')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror   
+                
+                @foreach ($technologies as $technology)
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" name="technologies[]" value="{{$technology->id}}" 
+                        id="technology{{ $technology->id }}"{{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }}>
+                    <label for="technology{{ $technology->id }}" class="form-check-label">
+                        {{$technology->name}}
+                    </label>
+                </div>
+                @endforeach
+
 
                 @error('image')
                 <div class="alert alert-danger">{{$message}}</div>

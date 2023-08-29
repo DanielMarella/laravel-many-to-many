@@ -20,12 +20,12 @@
 
                     <li class="nav-item">
                         <a class="nav-link {{ Route::current()->getName() == 'admin.projects.index' ? 'active' : '' }}" aria-current="page" href="{{ route('admin.projects.index') }}">
-                            projects</a>
+                            Projects</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link {{ Route::current()->getName() == 'admin.projects.deleted' ? 'active' : '' }}" aria-current="page" href="{{ route('admin.projects.deleted') }}">
-                            Deleted projects
+                            Deleted Projects
                         </a>
                     </li>
 
@@ -35,7 +35,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link {{ Route::current()->getName() == 'admin.projects.create' ? 'active' : '' }}" aria-current="page" href="{{ route('admin.projects.create') }}">
-                            Create new project
+                            Create New Project
                         </a>
                     </li>
 
